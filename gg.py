@@ -15,4 +15,4 @@ while True:
 			parseMessage(message)
 			request_params['since_id'] = message['id']
 	print 'looping'
-	time.sleep(3)
+	time.sleep(2)
