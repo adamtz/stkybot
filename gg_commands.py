@@ -23,7 +23,12 @@ def sendText_mention(text, mention_id, mention_name):
 def parseMessage(message):
 	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times 
 	if cache.has(message['name']):
-		sendText_mention("You are using the bot too much, wait 5 seconds", message['user_id'], message['name'])
+		status = cache.get(message['name'])
+		if status != "banned":
+			sendText_mention("You are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
+			cache.set(message['name'], "blocked", timeout = 30)
+		else:
+			return "Banned user no response"
 	else:
 	#add all users to this cache so they cant overwhelm the bot
 		cache.set(message['name'], "", timeout = 5)

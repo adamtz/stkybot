@@ -13,7 +13,6 @@ def webhook():
 	# We don't want to reply to ourselves!
 	if data['name'] != os.getenv('BOT_NAME'):
 		parseMessage(data)
-
 	return "ok", 200
 # request_params = {'token': 'wxWNTxmaK2OeSbcyLJNxchFnfQJWe09897S3kyJ6'}
 # while True:
@@ -29,6 +28,3 @@ def webhook():
 			# request_params['since_id'] = message['id']
 	# print ('looping')
 	# time.sleep(2)
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
