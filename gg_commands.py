@@ -21,30 +21,27 @@ def sendText_mention(text, mention_id, mention_name):
 	print (response)
 
 def parseMessage(message):
-	print (message['name']) 
 	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times
 	if cache.has(message['name']):
-		print("name in cache")
 		status = cache.get(message['name'])
-		print (status)
 		if status != "banned":
-			print("banning")
 			sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
 			#delete from cache first so we can update the timeout via set
 			cache.delete(message['name'])
 			cache.set(message['name'], "banned", timeout = 30)
 		else:
-			print("ignoring")
 			return None
 	else:
 	#add all users to this cache so they cant overwhelm the bot
 		cache.set(message['name'], "", timeout = 5)
-	print("parsing")
 	if (message['text'] == '!help'):
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number'
 		sendText(to_send)
 	elif (message['text'] == '!mfl'):
 		to_send = 'MFL Stuff: work in progress'
+		sendText(to_send)
+	elif (message['text'] == '!drew'):
+		to_send = 'Drew, Start the draft please'
 		sendText(to_send)
 	elif (message['text'] == '!random'):
 		to_send = str(random.randint(1,100))
