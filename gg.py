@@ -23,10 +23,10 @@ def webhook():
 	# if (response.status_code == 200):
 		# response_messages = response.json()['response']['messages']
 		# for message in response_messages:
-			first ignore messages from the bot_id
+			#first ignore messages from the bot_id
 			# if (message['name'] == 'StickyBot'):
 				# break
-			parse messages for responses
+			#parse messages for responses
 			# parseMessage(message)
 			# request_params['since_id'] = message['id']
 	# print 'looping'
