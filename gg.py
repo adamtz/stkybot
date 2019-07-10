@@ -3,11 +3,11 @@ import time
 import os
 import json
 from flask import Flask
-from gg_commands import *
+from app_commands import *
 
-gg = Flask(__name__)
+app = Flask(__name__)
 
-@gg.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
 	data = requests.get_json()
 
