@@ -30,6 +30,8 @@ def parseMessage(message):
 		if status != "banned":
 			print("banning")
 			sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
+			#delete from cache first so we can update the timeout via set
+			cache.delete(message['name'])
 			cache.set(message['name'], "banned", timeout = 30)
 		else:
 			print("ignoring")
