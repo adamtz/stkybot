@@ -12,7 +12,7 @@ def webhook():
 	data = requests.get_json()
 
 	# We don't want to reply to ourselves!
-	if data['name'] != os.getenv('BOT_NAME')):
+	if data['name'] != os.getenv('BOT_NAME'):
 		msg = '{}, you sent "{}".'.format(data['name'], data['text'])
 		sendText(msg)
 
