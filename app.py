@@ -2,14 +2,15 @@ import requests
 import time
 import os
 import json
-from flask import Flask
+from flask import Flask, request
 from gg_commands import *
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def webhook():
-	data = requests.get_json()
+	data = request.get_json()
+	print (data)
 
 	# We don't want to reply to ourselves!
 	if data['name'] != os.getenv('BOT_NAME'):
