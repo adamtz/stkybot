@@ -3,7 +3,7 @@ import time
 import os
 import json
 from flask import Flask
-from app_commands import *
+from gg_commands import *
 
 app = Flask(__name__)
 
