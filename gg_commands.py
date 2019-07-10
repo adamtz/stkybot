@@ -23,7 +23,13 @@ def sendText_mention(text, mention_id, mention_name):
 def parseMessage(message):
 	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times
 	status = cache.get(message['name'])
-	if status != "banned":
+	if status == "used":
+		print ("banning: " + message['name'])
+		#delete from cache first so we can update the timeout via set
+		cache.delete(message['name'])
+		cache.set(message['name'], "banned", timeout = 30)
+		sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
+	elif status != "banned":
 		#add all users to this cache so they cant overwhelm the bot
 		cache.set(message['name'], "used", timeout = 5)
 		if (message['text'] == '!help'):
@@ -45,12 +51,6 @@ def parseMessage(message):
 			#build message to send with the user to mention
 			to_send = 'you are the worst @' + mention_name
 			sendText_mention(to_send, mention_id, mention_name)
-	elif status == "used":
-		print ("banning: " + message['name'])
-		#delete from cache first so we can update the timeout via set
-		cache.delete(message['name'])
-		cache.set(message['name'], "banned", timeout = 30)
-		sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
 	else:
 		print ("ignoring commands from: " + message['name'])
 		return None
