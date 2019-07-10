@@ -25,8 +25,8 @@ def parseMessage(message):
 	if cache.has(message['name']):
 		status = cache.get(message['name'])
 		if status != "banned":
-			sendText_mention("You are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
-			cache.set(message['name'], "blocked", timeout = 30)
+			sendText_mention("@ ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
+			cache.set(message['name'], "banned", timeout = 30)
 		else:
 			return "Banned user no response"
 	else:
