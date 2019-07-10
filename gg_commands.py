@@ -34,9 +34,9 @@ def parseMessage(message):
 			print("ignoring")
 			return "Banned user no response"
 	else:
-	print("parsing")
 	#add all users to this cache so they cant overwhelm the bot
 		cache.set(message['name'], "", timeout = 5)
+	print("parsing")
 	if (message['text'] == '!help'):
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number'
 		sendText(to_send)
