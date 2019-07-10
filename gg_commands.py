@@ -25,7 +25,7 @@ def parseMessage(message):
 		sendText(to_send)
 	elif (message['text'] == '!random'):
 		to_send = str(random.randint(1,100))
-		print to_send
+		print (to_send)
 		sendText(to_send)
 	elif (message['text'] == 'who is the worst?'):
 		mention_id = message['user_id']
