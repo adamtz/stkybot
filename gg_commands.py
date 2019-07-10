@@ -3,7 +3,7 @@ import json
 import random
 
 def sendText(text):
-	post_params = { "bot_id" : "da00dc41a88e078a5a0c31c6cf", "text": text}
+	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
 	response = requests.post('https://api.groupme.com/v3/bots/post', data = json.dumps(post_params))
 	print response
 
