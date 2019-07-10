@@ -31,6 +31,7 @@ def parseMessage(message):
 			cache.delete(message['name'])
 			cache.set(message['name'], "banned", timeout = 30)
 		else:
+			print ("ignoring commands from: " + message['name'])
 			return None
 	else:
 	#add all users to this cache so they cant overwhelm the bot
@@ -48,9 +49,9 @@ def parseMessage(message):
 		to_send = str(random.randint(1,100))
 		print (to_send)
 		sendText(to_send)
-	elif (message['text'] == 'who is the worst?'):
+	elif (message['text'] == '!woat'):
 		mention_id = message['user_id']
 		mention_name = message['name']
 		#build message to send with the user to mention
-		to_send = 'you are @' + mention_name
+		to_send = 'you are the worst @' + mention_name
 		sendText_mention(to_send, mention_id, mention_name)
