@@ -25,7 +25,8 @@ def parseMessage(message):
 	findUser = cache.get(message['name'])
 	if findUser is not None:
 		sendText_mention("You are using the bot too much, wait 5 seconds", message['user_id'], message['name'])
-	else #add all users to this cache so they cant overwhelm the bot
+	else:
+	#add all users to this cache so they cant overwhelm the bot
 		cache.set(message['name'], timeout = 5)
 	if (message['text'] == '!help'):
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number'
