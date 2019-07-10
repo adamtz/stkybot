@@ -2,6 +2,9 @@ import requests
 import json
 import random
 import os
+from werkzeug.contrib.cache import SimpleCache
+
+cache = SimpleCache()
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
@@ -18,6 +21,12 @@ def sendText_mention(text, mention_id, mention_name):
 	print (response)
 
 def parseMessage(message):
+	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times
+	findUser = cache.get(message['name'])
+	if findUser is not None:
+		sendText_mention("You are using the bot too much, wait 5 seconds", message['user_id'], message['name'])
+	else #add all users to this cache so they cant overwhelm the bot
+		cache.set(message['name'], timeout = 5)
 	if (message['text'] == '!help'):
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number'
 		sendText(to_send)
