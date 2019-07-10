@@ -1,6 +1,7 @@
 import requests
 import json
 import random
+import os
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
