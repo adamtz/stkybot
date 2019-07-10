@@ -5,7 +5,7 @@ import random
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
 	response = requests.post('https://api.groupme.com/v3/bots/post', data = json.dumps(post_params))
-	print response
+	print (response)
 
 def sendText_mention(text, mention_id, mention_name):
 	#get info needed for loci
@@ -14,7 +14,7 @@ def sendText_mention(text, mention_id, mention_name):
 	post_params = { "bot_id" : "da00dc41a88e078a5a0c31c6cf", "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
 	headers = {'Content-Type': "application/json"}
 	response = requests.post('https://api.groupme.com/v3/bots/post', headers = headers, data = json.dumps(post_params))
-	print response
+	print (response)
 
 def parseMessage(message):
 	if (message['text'] == '!help'):
