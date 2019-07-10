@@ -10,12 +10,9 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
 	data = request.get_json()
-	print (data)
-
 	# We don't want to reply to ourselves!
 	if data['name'] != os.getenv('BOT_NAME'):
-		msg = '{}, you sent "{}".'.format(data['name'], data['text'])
-		sendText(msg)
+		parseMessage(data)
 
 	return "ok", 200
 # request_params = {'token': 'wxWNTxmaK2OeSbcyLJNxchFnfQJWe09897S3kyJ6'}
@@ -32,3 +29,6 @@ def webhook():
 			# request_params['since_id'] = message['id']
 	# print ('looping')
 	# time.sleep(2)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
