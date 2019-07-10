@@ -15,7 +15,7 @@ def sendText_mention(text, mention_id, mention_name):
 	#get info needed for loci
 	start = text.find('@')
 	end = len(mention_name)+1
-	post_params = { "bot_id" : "da00dc41a88e078a5a0c31c6cf", "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
+	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
 	headers = {'Content-Type': "application/json"}
 	response = requests.post('https://api.groupme.com/v3/bots/post', headers = headers, data = json.dumps(post_params))
 	print (response)
@@ -27,6 +27,7 @@ def parseMessage(message):
 		if status != "banned":
 			sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
 			#delete from cache first so we can update the timeout via set
+			print ("banning: " + message['name'])
 			cache.delete(message['name'])
 			cache.set(message['name'], "banned", timeout = 30)
 		else:
