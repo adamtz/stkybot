@@ -31,7 +31,7 @@ def runCommands(message):
 		to_send = 'Whoever is on the clock better pick...or else'
 		sendText(to_send)
 	elif (message['text'] == '!draft'):
-		draft_info = getDraftInfo()
+		#draft_info = getDraftInfo()
 		sendText("Draft Has Not Started Yet")
 	elif (message['text'] == '!bylaws'):
 		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
