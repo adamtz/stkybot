@@ -42,6 +42,9 @@ def runCommands(message):
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
+	elif (message['text'] == '!sticky'):
+		to_send = "Sticky is the man, he is a god among men"
+		sendText(to_send)
 	elif (message['text'] == '!random'):
 		to_send = str(random.randint(1,100))
 		sendText(to_send)
