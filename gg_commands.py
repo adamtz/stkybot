@@ -32,12 +32,15 @@ def runCommands(message):
 		sendText(to_send)
 	elif (message['text'] == '!draft'):
 		draft_info = getDraftInfo()
-		sendText(draft_info)
+		sendText("Draft Has Not Started Yet")
 	elif (message['text'] == '!bylaws'):
-		to_send = 'LINK'
+		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
 		sendText(to_send)
 	elif (message['text'] == '!drew'):
 		to_send = 'Drew, Start the draft please'
+		sendText(to_send)
+	elif (message['text'] == '!wakeup'):
+		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
 	elif (message['text'] == '!random'):
 		to_send = str(random.randint(1,100))
