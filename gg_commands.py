@@ -61,11 +61,12 @@ def parseMessage(message):
 		cache.delete(message['name'])
 		cache.set(message['name'], "banned", timeout = 30)
 		sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
-	elif status != "banned":
-		#add all users to this cache so they cant overwhelm the bot
-		cache.set(message['name'], "used", timeout = 5)
-		#run the commands
-		runCommands(message)
-	else:
+	elif status == "banned":
 		print ("ignoring commands from: " + message['name'])
 		return None
+	else:
+		#add all users to this cache so they cant overwhelm the bot
+		cache.delete(message['name'])
+		cache.set(message['name'], "used", timeout = 6)
+		#run the commands
+		runCommands(message)
