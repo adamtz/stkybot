@@ -22,7 +22,7 @@ def sendText_mention(text, mention_id, mention_name):
 
 def runCommands(message):
 	if (message['text'] == '!help'):
-		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number'
+		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
 		sendText(to_send)
 	elif (message['text'] == '!mfl'):
 		to_send = 'MFL Stuff::\n!otc:See who is OTC(not working)\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
