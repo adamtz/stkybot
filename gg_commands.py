@@ -26,9 +26,9 @@ def getDraftInfo():
 			otc_info = next((item for item in results if item["player"] == " "), False)
 			return otc_info
 		else:
-			print "request to mfl failed"
+			print ("request to mfl failed")
 	except Exception as e:
-		print "Error in getting getting OTC: " + str(e)
+		print ("Error in getting getting OTC: " + str(e))
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
