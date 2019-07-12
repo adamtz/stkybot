@@ -23,7 +23,7 @@ def getDraftInfo():
 		if response.status_code == 200:
 			data= json.loads(response.text)
 			results = data["draftResults"]["draftUnit"]["draftPick"]
-			otc_info = next((item for item in results if item["player"] == " "), False)
+			otc_info = next((item for item in results if item["player"] is None"), False)
 			return otc_info
 		else:
 			print ("request to mfl failed")
