@@ -6,6 +6,37 @@ from werkzeug.contrib.cache import SimpleCache
 
 cache = SimpleCache()
 
+def getOTC():
+	print ("otc")
+	otc_info = getDraftInfo()
+	#match franchiseid to team name
+	franchiseId = otc_info["franchise"]
+	#return franchiseMatch(franchiseId)
+	return franchiseId
+
+def getDraftInfo():
+	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
+	try:
+		url = "http://www65.myfantasyleague.com/2018/export?TYPE=draftResults&L=25858&W=1&JSON=1"
+		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			results = data["draftResults"]["draftUnit"]["draftPick"]
+			otc_info = next((item for item in results if item["player"] == " "), False)
+			return otc_info
+		else:
+			print "request to mfl failed"
+	except Exception as e:
+		print "Error in getting getting OTC: " + str(e)
+
+def loginHELPER(username, password):
+	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
+	#data= json.loads(response.text)
+	jar = response.cookies
+	mfl_id = jar.get("MFL_USER_ID")
+	return  jar
+
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
 	response = requests.post('https://api.groupme.com/v3/bots/post', data = json.dumps(post_params))
