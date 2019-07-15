@@ -8,22 +8,54 @@ cache = SimpleCache()
 
 def getOTC():
 	print ("otc")
-	otc_info = getDraftInfo()
+	otc_info = getDraftInfo_MFL()
 	#match franchiseid to team name
-	franchiseId = otc_info["franchise"]
-	#return franchiseMatch(franchiseId)
-	return franchiseId
+	otc_franchise = otc_info["franchise"]
+	members_list = getMembers()
+	matchMembers(members_list, otc_franchise)
 
-def getDraftInfo():
+def franchiseMatch(franchiseId):
+	try:
+		#attempt to get the list of franchise names from the cache, its not cached go and get it from MFL
+		franchise_list = cache.get("franchises")
+		if franchise_list is None:
+			franchise_list = getFranchiseInfo_MFL()
+			cache.set("franchises", franchise_list)
+		for franchise in franchise_list:
+			if (str(franchise["id"]) == str(franchiseId)):
+				return franchise["name"]
+	except Exception as e:
+		print ("Error in doing franchise match: " + str(e))
+
+def getFranchiseInfo_MFL():
+	mflJar = loginHELPER("stickyz", "redsreds1")
+	try:
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=25858&JSON=1"
+		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			results = data["league"]["franchises"]["franchise"]
+			franchise_list = []
+			for franchise in results:
+				franchise_info = {"id" : franchise["id"], "name" : franchise["name"]}
+				franchise_list.append(franchise_info)
+			return franchise_list
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting getting franchise info from mfl: " + str(e))
+
+def getDraftInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&W=1&JSON=1"
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
 			results = data["draftResults"]["draftUnit"]["draftPick"]
-			otc_info = next((item for item in results if item["player"] is None), False)
+			otc_info = next((item for item in results if item["player"] == ""), False)
 			return otc_info
 		else:
 			print ("request to mfl failed")
@@ -36,6 +68,29 @@ def loginHELPER(username, password):
 	jar = response.cookies
 	mfl_id = jar.get("MFL_USER_ID")
 	return  jar
+
+def getMembers():
+	#get members first by getting member lists
+	url = "https://api.groupme.com/v3/groups/"+os.getenv('GROUP_ID')
+	headers = {"Content-Type" : "application/json", "X-Access-Token" : "wxWNTxmaK2OeSbcyLJNxchFnfQJWe09897S3kyJ6"}
+	response = requests.get(url, headers = headers)
+	data= json.loads(response.text)
+	members_list = data["response"]["members"]
+	return members_list
+
+def matchMembers(members_list, franchise):
+	#match franchise OTC to list of members, if not found just return franchise for printing
+	#searches for exact match or name in, may need dirty matching on @symbol or something else like that depending on the league
+	for member in members_list:
+		if franchise in member["nickname"]:
+			text = "@" + franchise + " is OTC"
+			sendText_mention(text,member["user_id"],member["nickname"])
+			return True
+		else:
+			text = franchise + " is OTC but a mention match was not found"
+			sendText(text)
+			return False
+	return text
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
@@ -60,8 +115,8 @@ def runCommands(message):
 		sendText(to_send)
 	elif (message['text'] == '!otc'):
 		#to_send = 'Whoever is on the clock better pick...or else'
-		to_send = getOTC()
-		sendText(to_send)
+		getOTC()
+		#sendText(to_send)
 	elif (message['text'] == '!draft'):
 		#draft_info = getDraftInfo()
 		sendText("Draft Has Not Started Yet")
