@@ -7,12 +7,16 @@ from werkzeug.contrib.cache import SimpleCache
 cache = SimpleCache()
 
 def getOTC():
-	print ("otc")
-	otc_info = getOTCInfo_MFL()
-	#match franchiseid to team name
-	otc_franchise = franchiseMatch(otc_info["franchise"])
-	members_list = getMembers()
-	matchMembers(members_list, otc_franchise)
+	try:
+		print ("otc")
+		otc_info = getOTCInfo_MFL()
+		#match franchiseid to team name
+		otc_franchise = franchiseMatch(otc_info["franchise"])
+		members_list = getMembers()
+		matchMembers(members_list, otc_franchise)
+	except Exception as e:
+		print ("Error in getting OTC: " + str(e))
+		return False
 
 def franchiseMatch(franchiseId):
 	try:
@@ -132,14 +136,19 @@ def runCommands(message):
 		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
 		sendText(to_send)
 	elif (message['text'] == '!otc'):
-		getOTC()
+		bool = getOTC()
+		if bool is False:
+			sendText("whoever is otc better be picking!")
 		#sendText("whoever is otc better be picking!")
 	elif (message['text'] == '!draft'):
 		draft_info = getDraftInfo_MFL()
 		sendText(draft_info)
 	elif (message['text'] == '!bylaws'):
-		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
-		sendText("On the MFL Site")
+		if os.getenv('LEAGUEID') == "25858":
+			sendText("On the MFL Site")
+		else:
+			to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
+			sendText(to_send)
 	elif (message['text'] == '!drew'):
 		to_send = 'Drew, Start the draft please'
 		sendText(to_send)
