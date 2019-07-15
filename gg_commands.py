@@ -28,7 +28,7 @@ def franchiseMatch(franchiseId):
 		print ("Error in doing franchise match: " + str(e))
 
 def getFranchiseInfo_MFL():
-	mflJar = loginHELPER("stickyz", "redsreds1")
+	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
 	try:
 		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=25858&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
@@ -72,7 +72,7 @@ def loginHELPER(username, password):
 def getMembers():
 	#get members first by getting member lists
 	url = "https://api.groupme.com/v3/groups/"+os.getenv('GROUP_ID')
-	headers = {"Content-Type" : "application/json", "X-Access-Token" : "wxWNTxmaK2OeSbcyLJNxchFnfQJWe09897S3kyJ6"}
+	headers = {"Content-Type" : "application/json", "X-Access-Token" : os.getenv('BOT_TOKEN')}
 	response = requests.get(url, headers = headers)
 	data= json.loads(response.text)
 	members_list = data["response"]["members"]
@@ -111,17 +111,17 @@ def runCommands(message):
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
 		sendText(to_send)
 	elif (message['text'] == '!mfl'):
-		to_send = 'MFL Stuff::\n!otc:See who is OTC(not working)\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
+		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
 		sendText(to_send)
 	elif (message['text'] == '!otc'):
-		#getOTC()
-		sendText("whoever is otc better be picking!")
+		getOTC()
+		#sendText("whoever is otc better be picking!")
 	elif (message['text'] == '!draft'):
 		#draft_info = getDraftInfo()
-		sendText("Draft Has Not Started Yet")
+		sendText("Info")
 	elif (message['text'] == '!bylaws'):
 		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
-		sendText(to_send)
+		sendText("On the MFL Site")
 	elif (message['text'] == '!drew'):
 		to_send = 'Drew, Start the draft please'
 		sendText(to_send)
