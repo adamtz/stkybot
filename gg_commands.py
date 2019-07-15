@@ -114,8 +114,7 @@ def runCommands(message):
 		to_send = 'MFL Stuff::\n!otc:See who is OTC(not working)\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
 		sendText(to_send)
 	elif (message['text'] == '!otc'):
-		#to_send = 'Whoever is on the clock better pick...or else'
-		getOTC()
+		#getOTC()
 		#sendText(to_send)
 	elif (message['text'] == '!draft'):
 		#draft_info = getDraftInfo()
