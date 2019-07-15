@@ -115,7 +115,7 @@ def runCommands(message):
 		sendText(to_send)
 	elif (message['text'] == '!otc'):
 		#getOTC()
-		#sendText(to_send)
+		sendText("whoever is otc better be picking!")
 	elif (message['text'] == '!draft'):
 		#draft_info = getDraftInfo()
 		sendText("Draft Has Not Started Yet")
