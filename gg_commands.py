@@ -50,6 +50,8 @@ def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
 		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&" + os.getenv('LEAGUEID') + "&JSON=1"
+		print (url)
+		print (mflJar)
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -58,7 +60,7 @@ def getOTCInfo_MFL():
 			otc_info = next((item for item in results if item["player"] == ""), False)
 			return otc_info
 		else:
-			print ("request to mfl failed")
+			print ("request to otc mfl failed")
 	except Exception as e:
 		print ("Error in getting getting OTC: " + str(e))
 
@@ -78,7 +80,7 @@ def getDraftInfo_MFL():
 			draft_info_str = "Draft is in round: " + draft_info["round"] + ", pick: " + draft_info["pick"] + ". Waiting for: " + otc_team
 			return draft_info_str
 		else:
-			print ("request to mfl failed")
+			print ("request to draft mfl failed")
 	except Exception as e:
 		print ("Error in getting draft info: " + str(e))
 
