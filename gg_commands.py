@@ -82,17 +82,13 @@ def matchMembers(members_list, franchise):
 	#match franchise OTC to list of members, if not found just return franchise for printing
 	#searches for exact match or name in, may need dirty matching on @symbol or something else like that depending on the league
 	for member in members_list:
-		print (member["nickname"])
-		print (franchise)
 		if franchise in member["nickname"]:
 			text = "@" + franchise + " is OTC"
 			sendText_mention(text,member["user_id"],member["nickname"])
 			return True
 		else:
 			text = franchise + " is OTC but a mention match was not found"
-			sendText(text)
-			return False
-	return text
+	sendText(text)
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
