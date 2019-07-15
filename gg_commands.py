@@ -10,7 +10,7 @@ def getOTC():
 	print ("otc")
 	otc_info = getDraftInfo_MFL()
 	#match franchiseid to team name
-	otc_franchise = otc_info["franchise"]
+	otc_franchise = franchiseMatch(otc_info["franchise"])
 	members_list = getMembers()
 	matchMembers(members_list, otc_franchise)
 
