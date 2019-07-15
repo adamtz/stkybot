@@ -50,8 +50,6 @@ def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
 		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=" + os.getenv('LEAGUEID') + "&JSON=1"
-		print (url)
-		print (mflJar)
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
