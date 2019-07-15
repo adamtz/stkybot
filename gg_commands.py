@@ -82,6 +82,8 @@ def matchMembers(members_list, franchise):
 	#match franchise OTC to list of members, if not found just return franchise for printing
 	#searches for exact match or name in, may need dirty matching on @symbol or something else like that depending on the league
 	for member in members_list:
+		print (member["nickname"])
+		print (franchise)
 		if franchise in member["nickname"]:
 			text = "@" + franchise + " is OTC"
 			sendText_mention(text,member["user_id"],member["nickname"])
