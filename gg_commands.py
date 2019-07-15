@@ -8,7 +8,7 @@ cache = SimpleCache()
 
 def getOTC():
 	print ("otc")
-	otc_info = getDraftInfo_MFL()
+	otc_info = getOTCInfo_MFL()
 	#match franchiseid to team name
 	otc_franchise = franchiseMatch(otc_info["franchise"])
 	members_list = getMembers()
@@ -46,7 +46,7 @@ def getFranchiseInfo_MFL():
 	except Exception as e:
 		print ("Error in getting getting franchise info from mfl: " + str(e))
 
-def getDraftInfo_MFL():
+def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
 	try:
 		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&JSON=1"
@@ -61,6 +61,26 @@ def getDraftInfo_MFL():
 			print ("request to mfl failed")
 	except Exception as e:
 		print ("Error in getting getting OTC: " + str(e))
+
+def getDraftInfo_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
+	try:
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&JSON=1"
+		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			#get otc info first
+			results = data["draftResults"]["draftUnit"]["draftPick"]
+			draft_info = next((item for item in results if item["player"] == ""), False)
+			otc_team = franchiseMatch(draft_info["franchise"])
+			#get current pick and round
+			draft_info_str = "Draft is in round: " + draft_info["round"] + ", pick: " + draft_info["pick"] + ". Waiting for: " + otc_team
+			return draft_info_str
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting draft info: " + str(e))
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
@@ -87,7 +107,7 @@ def matchMembers(members_list, franchise):
 			sendText_mention(text,member["user_id"],member["nickname"])
 			return True
 		else:
-			text = franchise + " is OTC but a mention match was not found"
+			text = franchise + " is OTC but a mention match was not found, franchise names and groupme names need to match"
 	sendText(text)
 
 def sendText(text):
@@ -115,8 +135,8 @@ def runCommands(message):
 		getOTC()
 		#sendText("whoever is otc better be picking!")
 	elif (message['text'] == '!draft'):
-		#draft_info = getDraftInfo()
-		sendText("Info")
+		draft_info = getDraftInfo_MFL()
+		sendText(draft_info)
 	elif (message['text'] == '!bylaws'):
 		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
 		sendText("On the MFL Site")
