@@ -28,9 +28,9 @@ def franchiseMatch(franchiseId):
 		print ("Error in doing franchise match: " + str(e))
 
 def getFranchiseInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=25858&JSON=1"
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&" + os.getenv'LEAGUEID' + "&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -47,9 +47,9 @@ def getFranchiseInfo_MFL():
 		print ("Error in getting getting franchise info from mfl: " + str(e))
 
 def getOTCInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&JSON=1"
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&" + os.getenv'LEAGUEID' + "&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -63,9 +63,9 @@ def getOTCInfo_MFL():
 		print ("Error in getting getting OTC: " + str(e))
 
 def getDraftInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('STICKYPASS'))
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=25858&JSON=1"
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&" + os.getenv'LEAGUEID' + "&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
