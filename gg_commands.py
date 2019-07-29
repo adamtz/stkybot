@@ -89,6 +89,7 @@ def getDraftInfo_MFL():
 
 def getDraftInfo_FANTRAX():
 	#do some stuff with beautifulsoup?
+	print ("Hi")
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
