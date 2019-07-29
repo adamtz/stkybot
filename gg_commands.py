@@ -83,8 +83,12 @@ def getDraftInfo_MFL():
 			return draft_info_str
 		else:
 			print ("request to draft mfl failed")
+			return ("Draft Not Started or This code is broken")
 	except Exception as e:
 		print ("Error in getting draft info: " + str(e))
+
+def getDraftInfo_FANTRAX():
+	#do some stuff with beautifulsoup?
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
@@ -120,7 +124,7 @@ def sendText(text):
 	print (response)
 
 def sendText_mention(text, mention_id, mention_name):
-	#get info needed for loci
+	#get info needed for loci. Loci is the starting position and end length of the mention. So it needs to calculate where the @ symbol is and how long the mention is so it can place the tag
 	start = text.find('@')
 	end = len(mention_name)+1
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
