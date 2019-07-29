@@ -146,7 +146,10 @@ def runCommands(message):
 			sendText("whoever is otc better be picking!")
 		#sendText("whoever is otc better be picking!")
 	elif (message['text'] == '!draft'):
-		draft_info = getDraftInfo_MFL()
+		if os.getenv('LEAGUEID') == "25858":
+			draft_info = getDraftInfo_MFL()
+		else:
+			draft_info = 'Draft Order::\ntest derp\nderpderp'
 		sendText(draft_info)
 	elif (message['text'] == '!bylaws'):
 		if os.getenv('LEAGUEID') == "25858":
