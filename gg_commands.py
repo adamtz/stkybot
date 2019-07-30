@@ -149,7 +149,7 @@ def runCommands(message):
 		if os.getenv('LEAGUEID') == "25858":
 			draft_info = getDraftInfo_MFL()
 		else:
-			draft_info = 'Draft Order::\n#1-open\n#1-open\n#2-Wife\n#3-Sean\n#4-Czar\n#5-Ben\n#6-open\n#7-open\n#8-open\n#9-open\n#10-open\n#11-open\n#12-open\n#13-open\n#14-open' 
+			draft_info = 'Draft Order::\n#1-Drew\n#1-open\n#2-Wife\n#3-Sean\n#4-Czar\n#5-Ben\n#6-open\n#7-open\n#8-open\n#9-open\n#10-open\n#11-open\n#12-open\n#13-open\n#14-open' 
 		sendText(draft_info)
 	elif (message['text'] == '!bylaws'):
 		if os.getenv('LEAGUEID') == "25858":
