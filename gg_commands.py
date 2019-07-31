@@ -170,6 +170,9 @@ def runCommands(message):
 	elif (message['text'] == '!sticky'):
 		to_send = "Sticky is the man, he is a god among men"
 		sendText(to_send)
+	elif (message['text'] == '!keeperinfo' or message['text'] == '!keepershit' ):
+		to_send = "Players dropped: Top 10 QBs, Top 20 RBs, Top 30 WRs, Top 10 TEs, Top 10 IDLs, Top 20 EDGE, Top 20 LBs, Top 10 CBs, Top 20 S"
+		sendText(to_send)
 	elif (message['text'] == '!goodbot'):
 		mention_id = message['user_id']
 		mention_name = message['name']
