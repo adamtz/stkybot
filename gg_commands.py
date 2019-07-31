@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import json
 import random
@@ -149,7 +150,7 @@ def runCommands(message):
 		if os.getenv('LEAGUEID') == "25858":
 			draft_info = getDraftInfo_MFL()
 		else:
-			draft_info = 'Draft Order::\n#1-Drew\n#2-Wife\n#3-Sean\n#4-Czar\n#5-Ben\n#6-Ryan\n#7-Bill\n#8-Devin\n#9-Kevin\n#10-StickyZ\n#11-Corey\n#12-Alex\n#13-Fallen\n#14-Luke' 
+			draft_info = 'Draft Order::\n#1-Drew - Hand That Feeds\n#2-Wife - Always Half-Naked\n#3-Sean - Somebodys Baking Brownies\n#4-Czar - Czarry to Bother You\n#5-Ben - The Other Ben\n#6-Ryan - Team Trash Pandas\n#7-Bill - Trauma Llamas\n#8-Devin - D101 Expert\n#9-Kevin - This Fucking Guy\n#10-StickyZ - Eww… so sticky\n#11-Corey - thēDRÎ₽ćhrøñićłēš\n#12-Alex - Dawkin Donuts\n#13-Fallen - Drew Help\n#14-Luke - Fucking Canadian' 
 		sendText(draft_info)
 	elif (message['text'] == '!bylaws'):
 		if os.getenv('LEAGUEID') == "25858":
