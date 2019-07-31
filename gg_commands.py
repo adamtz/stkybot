@@ -152,7 +152,7 @@ def runCommands(message):
 		else:
 			draft_info = 'Draft Order::\n#1-Drew - Hand That Feeds\n#2-Wife - Always Half-Naked\n#3-Sean - Somebodys Baking Brownies\n#4-Czar - Czarry to Bother You\n#5-Ben - The Other Ben\n#6-Ryan - Team Trash Pandas\n#7-Bill - Trauma Llamas\n#8-Devin - D101 Expert\n#9-Kevin - This Fucking Guy\n#10-StickyZ - Eww… so sticky\n#11-Corey - thēDRÎ₽ćhrøñićłēš\n#12-Alex - Dawkin Donuts\n#13-Fallen - Drew Help\n#14-Luke - Fucking Canadian' 
 		sendText(draft_info)
-	elif (message['text'] == '!bylaws'):
+	elif (message['text'] == '!bylaws' or message['text'] == '!bylaw' ):
 		if os.getenv('LEAGUEID') == "25858":
 			sendText("On the MFL Site")
 		else:
@@ -161,11 +161,21 @@ def runCommands(message):
 	elif (message['text'] == '!drew'):
 		to_send = 'Drew, Start the draft please'
 		sendText(to_send)
+	elif (message['text'] == '!lineups' or message['text'] == '!lineup'):
+		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
+		sendText(to_send)
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
 	elif (message['text'] == '!sticky'):
 		to_send = "Sticky is the man, he is a god among men"
+		sendText(to_send)
+	elif (message['text'] == '!goodbot'):
+		mention_id = message['user_id']
+		mention_name = message['name']
+		#build message to send with the user to mention
+		to_send = 'Thank you @, you are a good water filed flesh bag...err I mean Human' + mention_name
+		sendText_mention(to_send, mention_id, mention_name)
 		sendText(to_send)
 	elif (message['text'] == '!random'):
 		to_send = str(random.randint(1,100))
