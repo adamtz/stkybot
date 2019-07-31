@@ -159,7 +159,7 @@ def runCommands(message):
 			to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
 			sendText(to_send)
 	elif (message['text'] == '!drew'):
-		to_send = 'Drew, Start the draft please'
+		to_send = 'Drew, make them pick please'
 		sendText(to_send)
 	elif (message['text'] == '!lineups' or message['text'] == '!lineup'):
 		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
