@@ -174,7 +174,7 @@ def runCommands(message):
 		mention_id = message['user_id']
 		mention_name = message['name']
 		#build message to send with the user to mention
-		to_send = 'Thank you @'+ mention_name +', you are a good water filed flesh bag...err I mean Human'
+		to_send = 'Thank you @'+ mention_name +', you are a good water filled flesh bag...err I mean Human'
 		sendText_mention(to_send, mention_id, mention_name)
 		sendText(to_send)
 	elif (message['text'] == '!random'):
