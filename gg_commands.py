@@ -92,6 +92,9 @@ def getDraftInfo_FANTRAX():
 	#do some stuff with beautifulsoup?
 	print ("Hi")
 
+def startBugMode(user):
+	print ("do a mention")
+
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
 	#data= json.loads(response.text)
@@ -136,7 +139,12 @@ def sendText_mention(text, mention_id, mention_name):
 
 def runCommands(message):
 	if (message['text'] == '!help'):
-		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
+		if os.getenv('LEAGUEID') == "25858":
+			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
+		elif os.getenv('LEAGUEID') == "1":
+			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is\n!keepershit:find out keeper info\n!lineups:find out starting lineups'
+		else:
+			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
 		sendText(to_send)
 	elif (message['text'] == '!mfl'):
 		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
@@ -170,6 +178,11 @@ def runCommands(message):
 	elif (message['text'] == '!sticky'):
 		to_send = "Sticky is the man, he is a god among men"
 		sendText(to_send)
+	elif ('!bugmode' in message['text'] and message['user_id'] == '6739678' ):
+		messageSplits = message['text'].split(" ")
+		userToBug = messageSplits[1]
+		print ('starting bug mode on:' + userToBug)
+		startBugMode(userToBug)
 	elif (message['text'] == '!keeperinfo' or message['text'] == '!keepershit' ):
 		to_send = "Players dropped: Top 10 QBs, Top 20 RBs, Top 30 WRs, Top 10 TEs, Top 10 IDLs, Top 20 EDGE, Top 20 LBs, Top 10 CBs, Top 20 S"
 		sendText(to_send)
