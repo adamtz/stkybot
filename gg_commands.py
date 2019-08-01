@@ -3,6 +3,7 @@ import requests
 import json
 import random
 import os
+import threading
 from werkzeug.contrib.cache import SimpleCache
 
 cache = SimpleCache()
@@ -92,9 +93,6 @@ def getDraftInfo_FANTRAX():
 	#do some stuff with beautifulsoup?
 	print ("Hi")
 
-def startBugMode(user):
-	print ("do a mention")
-
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
 	#data= json.loads(response.text)
@@ -178,11 +176,6 @@ def runCommands(message):
 	elif (message['text'] == '!sticky'):
 		to_send = "Sticky is the man, he is a god among men"
 		sendText(to_send)
-	elif ('!bugmode' in message['text'] and message['user_id'] == '6739678' ):
-		messageSplits = message['text'].split(" ")
-		userToBug = messageSplits[1]
-		print ('starting bug mode on:' + userToBug)
-		startBugMode(userToBug)
 	elif (message['text'] == '!keeperinfo' or message['text'] == '!keepershit' ):
 		to_send = "Players dropped: Top 10 QBs, Top 20 RBs, Top 30 WRs, Top 10 TEs, Top 10 IDLs, Top 20 EDGE, Top 20 LBs, Top 10 CBs, Top 20 S"
 		sendText(to_send)
