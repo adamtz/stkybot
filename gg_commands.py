@@ -61,7 +61,12 @@ def help():
 	sendText(to_send)
 
 def mfl():
-	to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
+	if LeagueID == "1":
+		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
+	elif LeagueID == "55825":
+		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
+	else:
+		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
 	sendText(to_send)
 
 def otc():
@@ -90,9 +95,13 @@ def lineups():
 	if LeagueID == "1":
 		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
 	elif LeagueID == "55825":
-		to_send = 'In progress'
+		to_send = getFranchiseInfo_MFL()
 	else:
 		to_send	= 'lineup info not found'
+	sendText(to_send + ". See !Bylaws For More Info")
+
+def dlBucks():
+	to_send = getDLBucks_MFL()
 	sendText(to_send)
 
 def woat(message):

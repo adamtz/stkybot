@@ -17,7 +17,7 @@ def franchiseMatch(franchiseId):
 def getFranchiseInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L="+ LeagueID +"&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -32,6 +32,32 @@ def getFranchiseInfo_MFL():
 			print ("request to mfl failed")
 	except Exception as e:
 		print ("Error in getting getting franchise info from mfl: " + str(e))
+
+def getLineupInfo_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	try:
+		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
+		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			results = results = data["league"]["starters"]
+			count = results["count"]
+			idp_count = results["idp_starters"]
+			print type(idp_count)
+			print idp_count
+			starters_list  = results["position"]
+			if idp_count is None or idp_count == "" or not idp_count:
+				lineup_info = "Total Starters: " + count
+			else:
+				lineup_info = "Total Starters: " + count + ", IDP Total: " + idp_count
+			for position in starters_list:
+				lineup_info = lineup_info + ", " + position["limit"] + position["name"]
+			return lineup_info
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting getting lineup info: " + str(e))
 
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
@@ -70,7 +96,7 @@ def getDraftInfo_MFL():
 	except Exception as e:
 		print ("Error in getting draft info: " + str(e))
 
-		def loginHELPER(username, password):
+def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
 	#data= json.loads(response.text)
 	jar = response.cookies
