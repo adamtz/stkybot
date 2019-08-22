@@ -2,6 +2,8 @@ import requests
 import json
 import os
 
+LeagueID = os.getenv('LEAGUEID')
+
 def franchiseMatch(franchiseId):
 	try:
 		#attempt to get the list of franchise names from the cache, its not cached go and get it from MFL
