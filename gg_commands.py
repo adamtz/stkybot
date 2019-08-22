@@ -98,7 +98,7 @@ def lineups():
 	if LeagueID == "1":
 		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
 	elif LeagueID == "55825":
-		to_send = getFranchiseInfo_MFL()
+		to_send = getLineupInfo_MFL()
 	else:
 		to_send	= 'lineup info not found'
 	sendText(to_send + ". See !Bylaws For More Info")
