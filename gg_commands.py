@@ -4,6 +4,7 @@ import random
 import os
 import json
 from werkzeug.contrib.cache import SimpleCache
+from gg_mfl import *
 
 cache = SimpleCache()
 LeagueID = os.getenv('LEAGUEID')
