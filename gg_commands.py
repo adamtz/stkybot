@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
-import requests
-import json
 import random
 import os
-import threading
 from werkzeug.contrib.cache import SimpleCache
 
 cache = SimpleCache()
+LeagueID = os.getenv('LEAGUEID')
+
+def sendText(text):
+	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
+	response = requests.post('https://api.groupme.com/v3/bots/post', data = json.dumps(post_params))
+	print (response)
+
+def sendText_mention(text, mention_id, mention_name):
+	#get info needed for loci. Loci is the starting position and end length of the mention. So it needs to calculate where the @ symbol is and how long the mention is so it can place the tag
+	start = text.find('@')
+	end = len(mention_name)+1
+	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
+	headers = {'Content-Type': "application/json"}
+	response = requests.post('https://api.groupme.com/v3/bots/post', headers = headers, data = json.dumps(post_params))
+	print (response)
 
 def getOTC():
 	try:
@@ -19,86 +31,6 @@ def getOTC():
 	except Exception as e:
 		print ("Error in getting OTC: " + str(e))
 		return False
-
-def franchiseMatch(franchiseId):
-	try:
-		#attempt to get the list of franchise names from the cache, its not cached go and get it from MFL
-		franchise_list = cache.get("franchises")
-		if franchise_list is None:
-			franchise_list = getFranchiseInfo_MFL()
-			cache.set("franchises", franchise_list)
-		for franchise in franchise_list:
-			if (str(franchise["id"]) == str(franchiseId)):
-				return franchise["name"]
-	except Exception as e:
-		print ("Error in doing franchise match: " + str(e))
-
-def getFranchiseInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
-	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=" + os.getenv('LEAGUEID') + "&JSON=1"
-		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
-		response = requests.get(url,cookies=mflJar)
-		if response.status_code == 200:
-			data= json.loads(response.text)
-			results = data["league"]["franchises"]["franchise"]
-			franchise_list = []
-			for franchise in results:
-				franchise_info = {"id" : franchise["id"], "name" : franchise["name"]}
-				franchise_list.append(franchise_info)
-			return franchise_list
-		else:
-			print ("request to mfl failed")
-	except Exception as e:
-		print ("Error in getting getting franchise info from mfl: " + str(e))
-
-def getOTCInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
-	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=" + os.getenv('LEAGUEID') + "&JSON=1"
-		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
-		response = requests.get(url,cookies=mflJar)
-		if response.status_code == 200:
-			data= json.loads(response.text)
-			results = data["draftResults"]["draftUnit"]["draftPick"]
-			otc_info = next((item for item in results if item["player"] == ""), False)
-			return otc_info
-		else:
-			print ("request to otc mfl failed")
-	except Exception as e:
-		print ("Error in getting getting OTC: " + str(e))
-
-def getDraftInfo_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
-	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=" + os.getenv('LEAGUEID') + "&JSON=1"
-		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
-		response = requests.get(url,cookies=mflJar)
-		if response.status_code == 200:
-			data= json.loads(response.text)
-			#get otc info first
-			results = data["draftResults"]["draftUnit"]["draftPick"]
-			draft_info = next((item for item in results if item["player"] == ""), False)
-			otc_team = franchiseMatch(draft_info["franchise"])
-			#get current pick and round
-			draft_info_str = "Draft is in round: " + draft_info["round"] + ", pick: " + draft_info["pick"] + ". Waiting for: " + otc_team
-			return draft_info_str
-		else:
-			print ("request to draft mfl failed")
-			return ("Draft Not Started or This code is broken")
-	except Exception as e:
-		print ("Error in getting draft info: " + str(e))
-
-def getDraftInfo_FANTRAX():
-	#do some stuff with beautifulsoup?
-	print ("Hi")
-
-def loginHELPER(username, password):
-	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
-	#data= json.loads(response.text)
-	jar = response.cookies
-	mfl_id = jar.get("MFL_USER_ID")
-	return  jar
 
 def getMembers():
 	#get members first by getting member lists
@@ -121,95 +53,51 @@ def matchMembers(members_list, franchise):
 			text = franchise + " is OTC but a mention match was not found, franchise names and groupme names need to match"
 	sendText(text)
 
-def sendText(text):
-	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
-	response = requests.post('https://api.groupme.com/v3/bots/post', data = json.dumps(post_params))
-	print (response)
-
-def sendText_mention(text, mention_id, mention_name):
-	#get info needed for loci. Loci is the starting position and end length of the mention. So it needs to calculate where the @ symbol is and how long the mention is so it can place the tag
-	start = text.find('@')
-	end = len(mention_name)+1
-	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text, "attachments" : [{ "type": "mentions", "user_ids": [str(mention_id)], "loci": [[start,end]] }]}
-	headers = {'Content-Type': "application/json"}
-	response = requests.post('https://api.groupme.com/v3/bots/post', headers = headers, data = json.dumps(post_params))
-	print (response)
-
-def runCommands(message):
-	if (message['text'] == '!help'):
-		if os.getenv('LEAGUEID') == "25858":
-			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
-		elif os.getenv('LEAGUEID') == "1":
-			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is\n!keepershit:find out keeper info\n!lineups:find out starting lineups'
-		else:
-			to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
-		sendText(to_send)
-	elif (message['text'] == '!mfl'):
-		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
-		sendText(to_send)
-	elif (message['text'] == '!otc'):
-		bool = getOTC()
-		if bool is False:
-			sendText("whoever is otc better be picking!")
-		#sendText("whoever is otc better be picking!")
-	elif (message['text'] == '!draft'):
-		if os.getenv('LEAGUEID') == "25858":
-			draft_info = getDraftInfo_MFL()
-		else:
-			draft_info = 'Draft Order::\n#1-Drew - Hand That Feeds\n#2-Wife - Always Half-Naked\n#3-Sean - Somebodys Baking Brownies\n#4-Czar - Czarry to Bother You\n#5-Ben - The Other Ben\n#6-Ryan - Team Trash Pandas\n#7-Bill - Trauma Llamas\n#8-Devin - D101 Expert\n#9-Kevin - This Fucking Guy\n#10-StickyZ - Eww… so sticky\n#11-Corey - thēDRÎ₽ćhrøñićłēš\n#12-Alex - Dawkin Donuts\n#13-Fallen - Drew Help\n#14-Luke - Fucking Canadian' 
-		sendText(draft_info)
-	elif (message['text'] == '!bylaws' or message['text'] == '!bylaw' ):
-		if os.getenv('LEAGUEID') == "25858":
-			sendText("On the MFL Site")
-		else:
-			to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
-			sendText(to_send)
-	elif (message['text'] == '!drew'):
-		to_send = 'Drew, make them pick please'
-		sendText(to_send)
-	elif (message['text'] == '!lineups' or message['text'] == '!lineup'):
-		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
-		sendText(to_send)
-	elif (message['text'] == '!wakeup'):
-		to_send = "Bleeep Bloop.....I'm up!"
-		sendText(to_send)
-	elif (message['text'] == '!sticky'):
-		to_send = "Sticky is the man, he is a god among men"
-		sendText(to_send)
-	elif (message['text'] == '!keeperinfo' or message['text'] == '!keepershit' ):
-		to_send = "Players dropped: Top 10 QBs, Top 20 RBs, Top 30 WRs, Top 10 TEs, Top 10 IDLs, Top 20 EDGE, Top 20 LBs, Top 10 CBs, Top 20 S"
-		sendText(to_send)
-	elif (message['text'] == '!goodbot'):
-		mention_id = message['user_id']
-		mention_name = message['name']
-		#build message to send with the user to mention
-		to_send = 'Thank you @'+ mention_name +', you are a good water filled flesh bag...err I mean Human'
-		sendText_mention(to_send, mention_id, mention_name)
-	elif (message['text'] == '!random'):
-		to_send = str(random.randint(1,100))
-		sendText(to_send)
-	elif (message['text'] == '!woat'):
-		mention_id = message['user_id']
-		mention_name = message['name']
-			#build message to send with the user to mention
-		to_send = 'you are the worst @' + mention_name
-		sendText_mention(to_send, mention_id, mention_name)
-
-def parseMessage(message):
-	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times
-	status = cache.get(message['name'])
-	if status == "used":
-		print ("banning: " + message['name'])
-		#delete from cache first so we can update the timeout via set
-		cache.delete(message['name'])
-		cache.set(message['name'], "banned", timeout = 30)
-		sendText_mention("@" + message['name']+ " ,you are using the bot too much, no bot for you for 30 seconds", message['user_id'], message['name'])
-	elif status == "banned":
-		print ("ignoring commands from: " + message['name'])
-		return None
+def help():
+	if LeagueID == "1":
+		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is\n!keepershit:find out keeper info\n!lineups:find out starting lineups'
 	else:
-		#add all users to this cache so they cant overwhelm the bot
-		cache.delete(message['name'])
-		cache.set(message['name'], "used", timeout = 6)
-		#run the commands
-		runCommands(message)
+		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
+	sendText(to_send)
+
+def mfl():
+	to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws'
+	sendText(to_send)
+
+def otc():
+	bool = getOTC()
+	if bool is False:
+		sendText("whoever is otc better be picking!")
+	#sendText("whoever is otc better be picking!")
+
+def draft():
+	if LeagueID == "25858":
+		draft_info = getDraftInfo_MFL()
+	else:
+		draft_info = 'Draft Order::\n#1-Drew - Hand That Feeds\n#2-Wife - Always Half-Naked\n#3-Sean - Somebodys Baking Brownies\n#4-Czar - Czarry to Bother You\n#5-Ben - The Other Ben\n#6-Ryan - Team Trash Pandas\n#7-Bill - Trauma Llamas\n#8-Devin - D101 Expert\n#9-Kevin - This Fucking Guy\n#10-StickyZ - Eww… so sticky\n#11-Corey - thēDRÎ₽ćhrøñićłēš\n#12-Alex - Dawkin Donuts\n#13-Fallen - Drew Help\n#14-Luke - Fucking Canadian' 
+	sendText(draft_info)
+
+def bylaws():
+	if LeagueID == "25858":
+		to_send = "On the MFL Site"
+	elif LeagueID == "55825":
+		to_send = "https://docs.google.com/document/d/14hFpzUFHm7VFeNXEQ4NydbYqAoSML2gR-PpYHdo-Qh0/view"
+	else:
+		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
+	sendText(to_send)
+
+def lineups():
+	if LeagueID == "1":
+		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
+	elif LeagueID == "55825":
+		to_send = 'In progress'
+	else:
+		to_send	= 'lineup info not found'
+	sendText(to_send)
+
+def woat(message):
+	mention_id = message['user_id']
+	mention_name = message['name']
+	#build message to send with the user to mention
+	to_send = 'you are the worst @' + mention_name
+	sendText_mention(to_send, mention_id, mention_name)
