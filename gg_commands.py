@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import requests
 import random
 import os
 from werkzeug.contrib.cache import SimpleCache
