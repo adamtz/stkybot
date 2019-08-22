@@ -44,8 +44,6 @@ def getLineupInfo_MFL():
 			results = results = data["league"]["starters"]
 			count = results["count"]
 			idp_count = results["idp_starters"]
-			print type(idp_count)
-			print idp_count
 			starters_list  = results["position"]
 			if idp_count is None or idp_count == "" or not idp_count:
 				lineup_info = "Total Starters: " + count
@@ -95,6 +93,24 @@ def getDraftInfo_MFL():
 			return ("Draft Not Started or This code is broken")
 	except Exception as e:
 		print ("Error in getting draft info: " + str(e))
+
+def getDLBucks_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	try:
+		url = "https://www67.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			#loop through teams to get current bb and franchise info
+			franchises = data["league"]["franchises"]["franchise"]
+			DLBucks_info = ""
+			for franchise in franchises:
+				DLBucks_info = "{}{} : {}\n".format(DLBucks_info, franchise["name"],franchise["bbidAvailableBalance"])
+			return DLBucks_info
+		else:
+			print "request to mfl failed"
+	except Exception as e:
+		print "Error in getting BB: " + str(e)
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
