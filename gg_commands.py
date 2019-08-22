@@ -2,6 +2,7 @@
 import requests
 import random
 import os
+import json
 from werkzeug.contrib.cache import SimpleCache
 
 cache = SimpleCache()
