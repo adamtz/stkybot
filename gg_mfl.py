@@ -108,9 +108,9 @@ def getDLBucks_MFL():
 				DLBucks_info = "{}{} : {}\n".format(DLBucks_info, franchise["name"],franchise["bbidAvailableBalance"])
 			return DLBucks_info
 		else:
-			print "request to mfl failed"
+			print ("request to mfl failed")
 	except Exception as e:
-		print "Error in getting BB: " + str(e)
+		print ("Error in getting BB: " + str(e))
 
 def loginHELPER(username, password):
 	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
