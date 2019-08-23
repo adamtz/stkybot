@@ -47,7 +47,7 @@ def runCommands(message):
 		bylaws()
 	elif (message['text'] == '!lineups' or message['text'] == '!lineup'):
 		lineups()
-	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlbucks'):
+	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlbucks' or message['text'] == '!dlBucks'):
 		dlBucks()
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
