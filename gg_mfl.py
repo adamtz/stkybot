@@ -60,6 +60,55 @@ def getLineupInfo_MFL():
 	except Exception as e:
 		print ("Error in getting getting lineup info: " + str(e))
 
+def getLiveScoring_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	try:
+		url = "http://www67.myfantasyleague.com/2019/export?TYPE=liveScoring&L=" + LeagueID + "&APIKEY=&W=1&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			if "matchup" in data["liveScoring"].keys():
+				franchise_list = getFranchiseInfo_MFL("55825")
+				matchups = data["liveScoring"]["matchup"]
+				lineup_info = ""
+				for matchup in matchups:
+					franchises = matchup["franchise"]
+					score1 = float(franchises[0]["score"])
+					team1 = list(filter(lambda team: team['id'] == franchises[0]["id"], franchise_list))[0]["name"]
+					score2 = float(franchises[1]["score"])
+					team2 = list(filter(lambda team: team['id'] == franchises[1]["id"], franchise_list))[0]["name"]
+					lineup_info= "{}{} vs {} : {} to {}\n".format(lineup_info, team1, team2, score1, score2)
+			else:
+				lineup_info = "No matchups"
+			return lineup_info
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting getting live scoring info: " + str(e))
+
+def getStandings_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	try:
+		url = "http://www67.myfantasyleague.com/2019/export?TYPE=leagueStandings&L=" + LeagueID + "&APIKEY=&W=1&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			data= json.loads(response.text)
+			standings_list = data["leagueStandings"]["franchise"]
+			standings_info = "League Standings:\n"
+			franchise_list = getFranchiseInfo_MFL(LeagueID)
+			for franchise in standings_list:
+				teamName = list(filter(lambda team: team['id'] == franchise["id"], franchise_list))[0]["name"]
+				wins = franchise["h2hw"]
+				losses = franchise["h2hl"]
+				pf = franchise["pf"]
+				power = franchise["pwr"]
+				standings_info = "{}{}: {}-{} PF:{} PWR:{}\n".format(standings_info, teamName, wins, losses, pf, power)
+			return standings_info
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting getting standings info: " + str(e))
+
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:

@@ -47,6 +47,10 @@ def runCommands(message):
 		bylaws()
 	elif (message['text'] == '!lineups' or message['text'] == '!lineup'):
 		lineups()
+	elif (message['text'] == '!scoring' or message['text'] == '!live'):
+		scoring()
+	elif (message['text'] == '!standings' or message['text'] == '!ranks'):
+		standings()
 	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlbucks'):
 		dlBucks()
 	elif (message['text'] == '!wakeup'):
@@ -69,3 +73,6 @@ def runCommands(message):
 		sendText(to_send)
 	elif (message['text'] == '!woat'):
 		woat(message)
+	elif (message['text'] == '!goose'):
+		to_send = "The Goose is loose"
+		sendText(to_send)

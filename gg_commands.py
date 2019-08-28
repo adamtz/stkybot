@@ -67,9 +67,9 @@ def mfl():
 	if LeagueID == "1":
 		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
 	elif LeagueID == "55825":
-		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
+		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring'
 	else:
-		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
+		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring'
 	sendText(to_send)
 
 def otc():
@@ -102,6 +102,20 @@ def lineups():
 	else:
 		to_send	= 'lineup info not found'
 	sendText(to_send + ". See !Bylaws For More Info")
+
+def scoring():
+	if LeagueID == "55825":
+		to_send = getLiveScoring_MFL()
+	else:
+		to_send	= 'scoring info not found'
+	sendText(to_send)
+
+def standings():
+	if LeagueID == "55825":
+		to_send = getStandings_MFL()
+	else:
+		to_send	= 'standings info not found'
+	sendText(to_send)
 
 def dlBucks():
 	to_send = getDLBucks_MFL()
