@@ -68,7 +68,7 @@ def getLiveScoring_MFL():
 		if response.status_code == 200:
 			data= json.loads(response.text)
 			if "matchup" in data["liveScoring"].keys():
-				franchise_list = getFranchiseInfo_MFL("55825")
+				franchise_list = getFranchiseInfo_MFL()
 				matchups = data["liveScoring"]["matchup"]
 				lineup_info = ""
 				for matchup in matchups:
@@ -95,7 +95,7 @@ def getStandings_MFL():
 			data= json.loads(response.text)
 			standings_list = data["leagueStandings"]["franchise"]
 			standings_info = "League Standings:\n"
-			franchise_list = getFranchiseInfo_MFL(LeagueID)
+			franchise_list = getFranchiseInfo_MFL()
 			for franchise in standings_list:
 				teamName = list(filter(lambda team: team['id'] == franchise["id"], franchise_list))[0]["name"]
 				wins = franchise["h2hw"]

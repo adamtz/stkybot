@@ -51,7 +51,7 @@ def runCommands(message):
 		scoring()
 	elif (message['text'] == '!standings' or message['text'] == '!ranks'):
 		standings()
-	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlBucks'):
+	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlbucks'):
 		dlBucks()
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
