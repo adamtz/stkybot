@@ -53,6 +53,8 @@ def runCommands(message):
 		standings()
 	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlbucks'):
 		dlBucks()
+	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
+		picks()
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
