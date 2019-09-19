@@ -121,13 +121,6 @@ def dlBucks():
 	to_send = getDLBucks_MFL()
 	sendText(to_send)
 
-def picks():
-	if LeagueID == "55825":
-		to_send = getPicks_MFL()
-	else:
-		to_send	= 'Picks not found'
-	sendText(to_send)
-
 def woat(message):
 	mention_id = message['user_id']
 	mention_name = message['name']

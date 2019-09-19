@@ -109,30 +109,6 @@ def getStandings_MFL():
 	except Exception as e:
 		print ("Error in getting getting standings info: " + str(e))
 
-def getPicks_MFL():
-	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
-	try:
-		url = "http://www67.myfantasyleague.com/2019/export?TYPE=futureDraftPicks&L=" + LeagueID + "&APIKEY=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
-		response = requests.get(url,cookies=mflJar)
-		if response.status_code == 200:
-			data= json.loads(response.text)
-			picks_list = data["futureDraftPicks"]["franchise"]
-			picks_info = "League Picks:\n"
-			franchise_list = getFranchiseInfo_MFL(LeagueID)
-			for franchise in picks_list:
-				teamName = list(filter(lambda team: team['id'] == franchise["id"], franchise_list))[0]["name"]
-				future_picks_list = franchise["futureDraftPick"]
-				future_pick_info = ""
-				for future_pick in future_picks_list:
-					future_pick_info = "{}Rd{},".format(future_pick_info,future_pick["round"])
-				future_pick_info = future_pick_info[:-1]
-				picks_info = "{}{}: {}\n".format(picks_info,teamName, future_pick_info)
-			return picks_info
-		else:
-			print ("request to mfl failed")
-	except Exception as e:
-		print ("Error in getting getting picks info: " + str(e))
-
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
