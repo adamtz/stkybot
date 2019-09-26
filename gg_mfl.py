@@ -40,7 +40,6 @@ def getLineupInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
 		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
-		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -89,6 +88,7 @@ def getLiveScoring_MFL():
 
 def getStandings_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	week = weekHelper()
 	try:
 		url = "http://www67.myfantasyleague.com/2019/export?TYPE=leagueStandings&L=" + LeagueID + "&APIKEY=&W="+ week + "&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
@@ -197,7 +197,7 @@ def loginHELPER(username, password):
 	return  jar
 
 def weekHelper():
-	d1 = date(2019, 9, 2)
+	d1 = date(2019, 9, 1)
 	d2 = date.today()
 	monday1 = (d1 - timedelta(days=d1.weekday()))
 	monday2 = (d2 - timedelta(days=d2.weekday()))
