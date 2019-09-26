@@ -67,7 +67,7 @@ def mfl():
 	if LeagueID == "1":
 		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info'
 	elif LeagueID == "55825":
-		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring\n!standings:Get Current Standings'
+		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring\n!standings:Get Current Standings\n!picks:Get Current Picks'
 	else:
 		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring'
 	sendText(to_send)
