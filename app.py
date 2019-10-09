@@ -60,6 +60,9 @@ def runCommands(message):
 		today = date.today().weekday()
 		if today != 1 or today != 2:
 			survivor()
+		else:
+			to_send = "Check back later in the week"
+			sendText(to_send)
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
