@@ -146,7 +146,7 @@ def getPicks_MFL():
 
 def getSurvivor_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
-	week = int(weekHelper())
+	week = int(float(weekHelper()))
 	print ("week is: " + str(week))
 	try:
 		url = "http://www67.myfantasyleague.com/2019/export?TYPE=survivorPool&L=" + LeagueID + "&APIKEY=&JSON=1"
