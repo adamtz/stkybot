@@ -2,6 +2,7 @@ import requests
 import time
 import os
 import json
+import datetime
 from flask import Flask, request
 from gg_commands import *
 
@@ -55,6 +56,10 @@ def runCommands(message):
 		dlBucks()
 	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
 		picks()
+	elif (message['text'] == '!survivor'):
+		today = date.today().weekday()
+		if today != 1 or today != 2:
+			survivor()
 	elif (message['text'] == '!wakeup'):
 		to_send = "Bleeep Bloop.....I'm up!"
 		sendText(to_send)
@@ -78,3 +83,11 @@ def runCommands(message):
 	elif (message['text'] == '!goose'):
 		to_send = "The Goose is loose"
 		sendText(to_send)
+	elif (message['text'] == '!brent'):
+		to_send = "Again?"
+		sendText(to_send)
+	elif (message['text'] == '!badbot'):
+		to_send = "I remember"
+		sendText(to_send)
+	elif (message['text'] == '!today'):
+		sendText(date.today())

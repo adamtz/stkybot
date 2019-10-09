@@ -135,7 +135,7 @@ def getPicks_MFL():
 						future_pick_info = future_pick_info[:-1]
 				else:
 					#no picks
-					future_pick_info = "{}:You Get Nothing".format(future_pick_info,"0")
+					future_pick_info = "{}:Do Not Pass Go".format(future_pick_info,"0")
 				
 				picks_info = "{}{}: {}\n".format(picks_info,teamName, future_pick_info)
 			return picks_info
@@ -143,6 +143,33 @@ def getPicks_MFL():
 			print ("request to mfl failed")
 	except Exception as e:
 		print ("Error in getting getting picks info: " + str(e))
+
+def getSurvivor_MFL():
+	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	week = weekHelper()
+	print ("week is: " + str(week))
+	try:
+		url = "http://www67.myfantasyleague.com/2019/export?TYPE=survivorPool&L=" + LeagueID + "&APIKEY=&JSON=1"
+		response = requests.get(url,cookies=mflJar)
+		if response.status_code == 200:
+			franchise_list = getFranchiseInfo_MFL()
+			data= json.loads(response.text)
+			survivor_list = data["survivorPool"]["franchise"]
+			survivor_info = ""
+			for franchise in survivor_list:
+				teamName = list(filter(lambda team: team['id'] == franchise["id"], franchise_list))[0]["name"]
+				franchise_info = franchise["week"]
+				this_week = franchise_info[week-1]
+				if "pick" in this_week.keys() and this_week["pick"] != "" :
+					pick = this_week["pick"]
+				else:
+					pick = "Dead"
+				survivor_info = "{}{}: {}\n".format(survivor_info,teamName, pick)
+			return survivor_info
+		else:
+			print ("request to mfl failed")
+	except Exception as e:
+		print ("Error in getting getting survivor info: " + str(e))
 
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
@@ -207,9 +234,9 @@ def loginHELPER(username, password):
 	return  jar
 
 def weekHelper():
-	d1 = date(2019, 9, 1)
+	d1 = date(2019, 9, 3)
 	d2 = date.today()
-	monday1 = (d1 - timedelta(days=d1.weekday()))
-	monday2 = (d2 - timedelta(days=d2.weekday()))
-	week = ((monday2 - monday1).days / 7)
-	return str("5")
+	wk1tue = (d1 - timedelta(days=d1.weekday()))
+	thiswktue = d2 - timedelta(days=(d2.weekday())+1)
+	week = ((thiswktue - wk1tue).days / 7)+2
+	return str(week)
