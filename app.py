@@ -58,7 +58,8 @@ def runCommands(message):
 		picks()
 	elif (message['text'] == '!survivor'):
 		today = date.today().weekday()
-		if today != 1 or today != 2:
+		print (today)
+		if today != 1 and today != 2:
 			survivor()
 		else:
 			to_send = "Check back later in the week"
