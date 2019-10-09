@@ -120,7 +120,7 @@ def getPicks_MFL():
 			data= json.loads(response.text)
 			picks_list = data["futureDraftPicks"]["franchise"]
 			picks_info = "League Picks:\n"
-			franchise_list = getFranchiseInfo_MFL(LeagueID)
+			franchise_list = getFranchiseInfo_MFL()
 			for franchise in picks_list:
 				teamName = list(filter(lambda team: team['id'] == franchise["id"], franchise_list))[0]["name"]
 				future_picks_list = franchise["futureDraftPick"]
