@@ -102,8 +102,8 @@ def runCommands(message):
 	elif (message['text'] == '!knotts'):
 		to_send = "I may be 99% code but I know that Knotts is the real worst"
 		sendText(to_send)
-	elif (message['text'] == '!vp'):
-		to_send = ""
+	elif (message['text'] == '!wife'):
+		to_send = "No Pants, No Problem"
 		sendText(to_send)
 	elif (message['text'] == '!donotpassgo'):
 		to_send = "DO NOT PASS GO, DO NOT COLLECT 200 DOLLARS: https://www.youtube.com/watch?v=Cj1wcs7SZj0"
