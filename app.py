@@ -94,4 +94,4 @@ def runCommands(message):
 		to_send = "I remember"
 		sendText(to_send)
 	elif (message['text'] == '!today'):
-		sendText(date.today())
+		sendText(json.dumps(date.today()))
