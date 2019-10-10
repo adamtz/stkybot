@@ -93,5 +93,12 @@ def runCommands(message):
 	elif (message['text'] == '!badbot'):
 		to_send = "I remember"
 		sendText(to_send)
-	elif (message['text'] == '!today'):
-		sendText(json.dumps(date.today()))
+	elif (message['text'] == '!santi'):
+		to_send = "Staten Island Proud"
+		sendText(to_send)
+	elif (message['text'] == '!donotpassgo'):
+		to_send = "DO NOT PASS GO, DO NOT COLLECT 200 DOLLARS: https://www.youtube.com/watch?v=Cj1wcs7SZj0"
+		sendText(to_send)
+	elif (message['text'] == '!rip'):
+		to_send = "Rest In Pepperoni"
+		sendText(to_send)
