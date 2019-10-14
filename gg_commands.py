@@ -70,7 +70,7 @@ def mfl():
 	elif LeagueID == "55825":
 		to_send = 'MFL Stuff::\n!dlBucks:Get Current DL Bucks\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring\n!standings:Get Current Standings\n!picks:Get Current Picks\n!Survivor:Get Current Survivor'
 	else:
-		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring'
+		to_send = 'MFL Stuff::\n!otc:See who is OTC\n!draft:Get draft info\n!bylaws:Get Link for Bylaws\n!lineup:Get Lineup Info\n!scoring:Get Current Scoring\n!standings:Get Current Standings\n!picks:Get Current Picks'
 	sendText(to_send)
 
 def otc():
@@ -80,14 +80,15 @@ def otc():
 	#sendText("whoever is otc better be picking!")
 
 def draft():
-	if LeagueID == "25858":
-		draft_info = getDraftInfo_MFL()
+	if LeagueID in mflLeagues:
+		#to_send = getLineupInfo_MFL()
+		sendText("Work in progress")
 	else:
 		draft_info = 'Draft Order::\n#1-Drew - Hand That Feeds\n#2-Wife - Always Half-Naked\n#3-Sean - Somebodys Baking Brownies\n#4-Czar - Czarry to Bother You\n#5-Ben - The Other Ben\n#6-Ryan - Team Trash Pandas\n#7-Bill - Trauma Llamas\n#8-Devin - D101 Expert\n#9-Kevin - This Fucking Guy\n#10-StickyZ - Eww… so sticky\n#11-Corey - thēDRÎ₽ćhrøñićłēš\n#12-Alex - Dawkin Donuts\n#13-Fallen - Drew Help\n#14-Luke - Fucking Canadian' 
 	sendText(draft_info)
 
 def bylaws():
-	if LeagueID == "25858":
+	if LeagueID == "31432":
 		to_send = "On the MFL Site"
 	elif LeagueID == "55825":
 		to_send = "https://docs.google.com/document/d/14hFpzUFHm7VFeNXEQ4NydbYqAoSML2gR-PpYHdo-Qh0/view"
@@ -134,6 +135,13 @@ def survivor():
 		to_send = getSurvivor_MFL()
 	else:
 		to_send	= 'No Survivor'
+	sendText(to_send)
+
+def bball():
+	if LeagueID == "31432":
+		to_send = doBBall()
+	else:
+		to_send = "Not in use"
 	sendText(to_send)
 
 def woat(message):

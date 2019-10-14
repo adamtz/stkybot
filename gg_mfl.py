@@ -234,6 +234,12 @@ def loginHELPER(username, password):
 	mfl_id = jar.get("MFL_USER_ID")
 	return  jar
 
+def doBB():
+	week = weekHelper()
+	url = "https://bbobw.herokuapp.com/run/" + week
+	response = requests.get(url, timeout=100000)
+	return "Doing the thing, might take us a second"
+
 def weekHelper():
 	d1 = date(2019, 9, 3)
 	d2 = date.today()
