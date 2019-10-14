@@ -238,7 +238,7 @@ def doBBall():
 	week = weekHelper()
 	print ("doing the thing for week: " + week)
 	url = "https://bbobw.herokuapp.com/run/" + week
-	response = requests.get(url, timeout=.001)
+	response = requests.get(url, timeout=10)
 	return "Doing the thing, might take us a second"
 
 def weekHelper():
@@ -247,4 +247,5 @@ def weekHelper():
 	wk1tue = (d1 - timedelta(days=d1.weekday()))
 	thiswktue = d2 - timedelta(days=(d2.weekday())+1)
 	week = ((thiswktue - wk1tue).days / 7)+1
+	print ("Serving Week: " + str(week))
 	return str(week)
