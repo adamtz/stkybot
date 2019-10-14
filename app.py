@@ -57,7 +57,7 @@ def runCommands(message):
 	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
 		picks()
 	elif (message['text'] == '!dothething' or message['text'] == '!bestball'):
-		if message['user_id'] == "6739678"
+		if message['user_id'] == "6739678":
 			bball()
 	elif (message['text'] == '!survivor'):
 		today = date.today().weekday()
