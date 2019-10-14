@@ -170,6 +170,7 @@ def getSurvivor_MFL():
 			print ("request to mfl failed")
 	except Exception as e:
 		print ("Error in getting getting survivor info: " + str(e))
+		return ("No Survivor")
 
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))

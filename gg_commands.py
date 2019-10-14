@@ -8,6 +8,7 @@ from gg_mfl import *
 
 cache = SimpleCache()
 LeagueID = os.getenv('LEAGUEID')
+mflLeagues = ["55825", "31432"]
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
@@ -97,21 +98,21 @@ def bylaws():
 def lineups():
 	if LeagueID == "1":
 		to_send = '1QB, 2RB, 3WR, 1TE, 1SFLEX, 1FLEX, 2IDL, 3EDGE, 3LB, 3CB, 2S, 1DFLEX'
-	elif LeagueID == "55825":
+	elif LeagueID in mflLeagues:
 		to_send = getLineupInfo_MFL()
 	else:
 		to_send	= 'lineup info not found'
 	sendText(to_send + ". See !Bylaws For More Info")
 
 def scoring():
-	if LeagueID == "55825":
+	if LeagueID in mflLeagues:
 		to_send = getLiveScoring_MFL()
 	else:
 		to_send	= 'scoring info not found'
 	sendText(to_send)
 
 def standings():
-	if LeagueID == "55825":
+	if LeagueID in mflLeagues:
 		to_send = getStandings_MFL()
 	else:
 		to_send	= 'standings info not found'
@@ -122,7 +123,7 @@ def dlBucks():
 	sendText(to_send)
 
 def picks():
-	if LeagueID == "55825":
+	if LeagueID in mflLeagues:
 		to_send = getPicks_MFL()
 	else:
 		to_send	= 'Picks not found'
