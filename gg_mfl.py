@@ -237,9 +237,11 @@ def loginHELPER(username, password):
 def doBBall():
 	week = weekHelper()
 	print ("doing the thing for week: " + week)
-	url = "https://bbobw.herokuapp.com/run/" + week
-	response = requests.get(url, timeout=10)
-	return "Doing the thing, might take us a second"
+	url = "https://bbobw.herokuapp.com/run/" + week + "/"
+	try:
+		response = requests.get(url, timeout=3)
+	except:
+		return "Doing the thing, might take us a second"
 
 def weekHelper():
 	d1 = date(2019, 9, 3)
