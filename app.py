@@ -59,6 +59,11 @@ def runCommands(message):
 	elif (message['text'] == '!dothething' or message['text'] == '!bestball'):
 		if message['user_id'] == "6739678":
 			bball()
+		else:
+			to_send = "No BestBall for you!"
+			sendText(to_send)
+			to_send = "https://thumbs.gfycat.com/UnknownAdorableBuzzard-size_restricted.gif"
+			sendText(to_send)
 	elif (message['text'] == '!survivor'):
 		today = date.today().weekday()
 		print (today)
