@@ -248,6 +248,6 @@ def weekHelper():
 	d2 = date.today()
 	wk1tue = (d1 - timedelta(days=d1.weekday()))
 	thiswktue = d2 - timedelta(days=(d2.weekday())+1)
-	week = ((thiswktue - wk1tue).days / 7)+1
+	week = ((thiswktue - wk1tue).days / 7)
 	print ("Serving Week: " + str(int(float(week))))
 	return str(int(float(week)))
