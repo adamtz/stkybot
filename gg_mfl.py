@@ -256,4 +256,4 @@ def weekHelper():
 		week = week + 1
 	else:
 		week = week + 2
-	return str(week)
+	return str(int(float(week)))
