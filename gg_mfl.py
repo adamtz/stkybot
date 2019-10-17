@@ -251,7 +251,6 @@ def weekHelper():
 	thiswktue = d2 - timedelta(days=(d2.weekday())+1)
 	week = ((thiswktue - wk1tue).days / 7)
 	today = date.today().weekday()
-	print today
 	#if today is sunday/monday/tuesday/wednesday keep on previous week stuff else do the current week
 	if today <= 2:
 		week = week + 1
