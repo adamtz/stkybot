@@ -146,6 +146,7 @@ def getPicks_MFL():
 
 def getSurvivor_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
+	#week has to be an int here for getting the right week on the array of weeks from mfl
 	week = int(weekHelper())
 	print ("week is: " + str(week))
 	try:
@@ -244,10 +245,17 @@ def doBBall():
 		return "Doing the thing, might take us a second"
 
 def weekHelper():
-	d1 = date(2019, 9, 3)
-	d2 = date.today()
-	wk1tue = (d1 - timedelta(days=d1.weekday()))
-	thiswktue = d2 - timedelta(days=(d2.weekday())+1)
-	week = ((thiswktue - wk1tue).days / 7)+2
-	print ("Serving Week: " + str(int(float(week))))
-	return str(int(float(week)))
+from datetime import datetime, timedelta, date
+d1 = date(2019, 9, 3)
+d2 = date.today()
+wk1tue = (d1 - timedelta(days=d1.weekday()))
+thiswktue = d2 - timedelta(days=(d2.weekday())+1)
+week = ((thiswktue - wk1tue).days / 7)
+today = date.today().weekday()
+print today
+#if today is sunday/monday/tuesday/wednesday keep on previous week stuff else do the current week
+if today <= 2:
+	week = week + 1
+else:
+	week = week + 2
+return str(week)
