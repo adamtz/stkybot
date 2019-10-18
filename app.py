@@ -106,6 +106,9 @@ def runCommands(message):
 	elif (message['text'] == '!santi'):
 		to_send = "Staten Island Proud"
 		sendText(to_send)
+	elif (message['text'] == '!luke'):
+		to_send = "From Canada, With Love."
+		sendText(to_send)
 	elif (message['text'] == '!drew'):
 		to_send = "Go Broncos!"
 		sendText(to_send)

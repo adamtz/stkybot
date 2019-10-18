@@ -59,7 +59,7 @@ def matchMembers(members_list, franchise):
 
 def help():
 	if LeagueID == "1":
-		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is\n!keepershit:find out keeper info\n!lineups:find out starting lineups'
+		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is\n!keepershit:find out keeper info\n!yp:find out YP stuff\n!lineups:find out starting lineups'
 	else:
 		to_send = 'List of Commands:\n!mfl:get mfl commands\n!random:get a random number\n!woat:find out who the worst is'
 	sendText(to_send)
