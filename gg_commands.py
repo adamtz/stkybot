@@ -144,6 +144,13 @@ def bball():
 		to_send = "Not in use"
 	sendText(to_send)
 
+def fourYP():
+	if LeagueID == "1":
+		to_send = do4YP()
+	else:
+		to_send = "Not in use"
+	sendText(to_send)
+
 def woat(message):
 	mention_id = message['user_id']
 	mention_name = message['name']

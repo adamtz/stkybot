@@ -245,13 +245,13 @@ def doBBall():
 		return "Doing the thing, might take us a second"
 
 def do4YP():
-	week = weekHelper()
-	print ("doing the thing for week: " + week)
-	url = "https://stickypi.herokuapp.com/4yp/standings" + week + "/"
+	url = "https://stickypi.herokuapp.com/4yp/standings/"
 	try:
 		response = requests.get(url)
+		print (response)
+		return response
 	except:
-		return "Doing the thing, might take us a second"
+		return "Error Getting Standings"
 
 def weekHelper():
 	d1 = date(2019, 9, 3)
