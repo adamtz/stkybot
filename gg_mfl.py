@@ -248,8 +248,8 @@ def do4YP():
 	url = "https://stickypi.herokuapp.com/4yp/standings/"
 	try:
 		response = requests.get(url)
-		print (response)
-		return response
+		print (response.text)
+		return response.text
 	except:
 		return "Error Getting Standings"
 
