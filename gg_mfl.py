@@ -238,9 +238,18 @@ def loginHELPER(username, password):
 def doBBall():
 	week = weekHelper()
 	print ("doing the thing for week: " + week)
-	url = "https://bbobw.herokuapp.com/run/" + week + "/"
+	url = "https://stickypi.herokuapp.com/run/" + week + "/"
 	try:
 		response = requests.get(url, timeout=3)
+	except:
+		return "Doing the thing, might take us a second"
+
+def do4YP():
+	week = weekHelper()
+	print ("doing the thing for week: " + week)
+	url = "https://stickypi.herokuapp.com/4yp/standings" + week + "/"
+	try:
+		response = requests.get(url)
 	except:
 		return "Doing the thing, might take us a second"
 
