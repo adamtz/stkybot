@@ -151,6 +151,13 @@ def fourYP():
 		to_send = "Not in use"
 	sendText(to_send)
 
+def DL3():
+	if LeagueID == "55825":
+		to_send = doDL3()
+	else:
+		to_send = "Not in use"
+	sendText(to_send)
+
 def woat(message):
 	mention_id = message['user_id']
 	mention_name = message['name']

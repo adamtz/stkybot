@@ -253,6 +253,15 @@ def do4YP():
 	except:
 		return "Error Getting Standings"
 
+def doDL3():
+	url = "https://stickypi.herokuapp.com/dl3/run/"
+	try:
+		response = requests.get(url)
+		print (response.text)
+		return response.text
+	except:
+		return "Error Getting Standings"
+
 def weekHelper():
 	d1 = date(2019, 9, 3)
 	d2 = date.today()
