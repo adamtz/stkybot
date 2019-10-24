@@ -253,8 +253,17 @@ def do4YP():
 	except:
 		return "Error Getting Standings"
 
-def doDL3():
+def doDL3_run():
 	url = "https://stickypi.herokuapp.com/dl3/run/"
+	try:
+		response = requests.get(url)
+		print (response.text)
+		return response.text
+	except:
+		return "Error Running Monopoly Update"
+
+def doDL3_dice():
+	url = "https://stickypi.herokuapp.com/dl3/dice/"
 	try:
 		response = requests.get(url)
 		print (response.text)
