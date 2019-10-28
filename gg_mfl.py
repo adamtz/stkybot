@@ -245,6 +245,15 @@ def doBBall():
 		return "Doing the thing, might take us a second"
 
 def do4YP():
+	url = "https://stickypi.herokuapp.com/4yp/vp/"
+	try:
+		response = requests.get(url)
+		print (response.text)
+		return response.text
+	except:
+		return "Error Getting VP Standings"
+
+def do4YP_standings():
 	url = "https://stickypi.herokuapp.com/4yp/standings/"
 	try:
 		response = requests.get(url)
