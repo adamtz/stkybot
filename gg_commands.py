@@ -116,7 +116,7 @@ def standings():
 	if LeagueID in mflLeagues:
 		to_send = getStandings_MFL()
 	elif LeagueID == "1":
-		do4YP_Standings()
+		to_send = do4YP_Standings()
 	else:
 		to_send	= 'standings info not found'
 	sendText(to_send)
@@ -152,6 +152,7 @@ def fourYP():
 	else:
 		to_send = "Not in use"
 	sendText(to_send)
+
 def dl3_run():
 	if LeagueID == "55825":
 		to_send = doDL3-run()
