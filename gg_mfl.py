@@ -253,7 +253,7 @@ def do4YP():
 	except:
 		return "Error Getting VP Standings"
 
-def do4YP_standings():
+def do4YP_Standings():
 	url = "https://stickypi.herokuapp.com/4yp/standings/"
 	try:
 		response = requests.get(url)
