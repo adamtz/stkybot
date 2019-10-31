@@ -64,7 +64,7 @@ def runCommands(message):
 	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
 		picks()
 	elif (message['text'] == '!dothething' or message['text'] == '!bestball'):
-		if message['user_id'] == "6739678":
+		if message['user_id'] == "6739678" or message['user_id'] == "27293802":
 			bball()
 		else:
 			to_send = "No BestBall for you!"
