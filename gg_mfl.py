@@ -262,6 +262,15 @@ def do4YP_Standings():
 	except:
 		return "Error Getting Standings"
 
+def do4YP_Scoring():
+	url = "https://stickypi.herokuapp.com/4yp/scoring/"
+	try:
+		response = requests.get(url)
+		print (response.text)
+		return response.text
+	except:
+		return "Error Getting Standings"
+
 def doDL3_run():
 	url = "https://stickypi.herokuapp.com/dl3/run/"
 	try:
