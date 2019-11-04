@@ -107,7 +107,7 @@ def lineups():
 
 def scoring():
 	if LeagueID in mflLeagues:
-		to_send = getStandings_MFL()
+		to_send = getLiveScoring_MFL()
 	elif LeagueID == "1":
 		to_send = do4YP_Scoring()
 	else:
