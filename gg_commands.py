@@ -157,7 +157,7 @@ def fourYP():
 
 def dl3_run():
 	if LeagueID == "55825":
-		to_send = doDL3-run()
+		to_send = doDL3_run()
 	else:
 		to_send = "Not in use"
 	sendText(to_send)
