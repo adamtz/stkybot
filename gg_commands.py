@@ -8,7 +8,7 @@ from gg_mfl import *
 
 cache = SimpleCache()
 LeagueID = os.getenv('LEAGUEID')
-mflLeagues = ["55825", "31432"]
+mflLeagues = ["55825", "31432", "24928"]
 
 def sendText(text):
 	post_params = { "bot_id" : os.getenv('GROUPME_BOT_ID'), "text": text}
