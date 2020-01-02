@@ -52,6 +52,10 @@ def runCommands(message):
 		scoring()
 	elif (message['text'] == '!standings' or message['text'] == '!ranks'):
 		standings()
+	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
+		picks()
+	elif (message['text'] == '!days'):
+		days()
 	elif (message['text'] == '!faab' or message['text'] == '!bucks' or message['text'] == '!DLBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlBucks' or message['text'] == '!dlbucks'):
 		dlBucks()
 	elif (message['text'] == '!dice' or message['text'] == '!rolls' or message['text'] == '!getrolls'):
@@ -61,8 +65,6 @@ def runCommands(message):
 			to_send = "Running Bucks Update"
 			sendText(to_send)
 			dl3_run()
-	elif (message['text'] == '!picks' or message['text'] == '!draftpicks'):
-		picks()
 	elif (message['text'] == '!dothething' or message['text'] == '!bestball'):
 		if message['user_id'] == "6739678" or message['user_id'] == "27293802":
 			bball()

@@ -144,6 +144,15 @@ def getPicks_MFL():
 	except Exception as e:
 		print ("Error in getting getting picks info: " + str(e))
 
+def getDays():
+	url = "https://stickypi.herokuapp.com/days"
+	try:
+		response = requests.get(url)
+		print (response.text)
+		return response.text
+	except:
+		return "Error Getting Days"
+
 def getSurvivor_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	#week has to be an int here for getting the right week on the array of weeks from mfl

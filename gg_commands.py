@@ -134,6 +134,10 @@ def picks():
 		to_send	= 'Picks not found'
 	sendText(to_send)
 
+def days():
+	to_send = getDays()
+	sendText(to_send)
+
 def survivor():
 	if LeagueID == "55825":
 		to_send = getSurvivor_MFL()
