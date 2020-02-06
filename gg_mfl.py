@@ -21,7 +21,7 @@ def franchiseMatch(franchiseId):
 def getFranchiseInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L="+ LeagueID +"&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=league&L="+ LeagueID +"&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -40,7 +40,7 @@ def getFranchiseInfo_MFL():
 def getLineupInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=league&L=" + LeagueID + "&JSON=1"
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -64,7 +64,7 @@ def getLiveScoring_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	week = weekHelper()
 	try:
-		url = "http://www67.myfantasyleague.com/2019/export?TYPE=liveScoring&L=" + LeagueID + "&APIKEY=&W="+ week + "&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=liveScoring&L=" + LeagueID + "&APIKEY=&W="+ week + "&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -91,7 +91,7 @@ def getStandings_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	week = weekHelper()
 	try:
-		url = "http://www67.myfantasyleague.com/2019/export?TYPE=leagueStandings&L=" + LeagueID + "&APIKEY=&W="+ week + "&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=leagueStandings&L=" + LeagueID + "&APIKEY=&W="+ week + "&DETAILS=&JSON=1"		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -114,7 +114,7 @@ def getStandings_MFL():
 def getPicks_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www67.myfantasyleague.com/2019/export?TYPE=futureDraftPicks&L=" + LeagueID + "&APIKEY=&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=futureDraftPicks&L=" + LeagueID + "&APIKEY=&JSON=1"
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -159,7 +159,7 @@ def getSurvivor_MFL():
 	week = int(weekHelper())
 	print ("week is: " + str(week))
 	try:
-		url = "http://www67.myfantasyleague.com/2019/export?TYPE=survivorPool&L=" + LeagueID + "&APIKEY=&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=survivorPool&L=" + LeagueID + "&APIKEY=&JSON=1"
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			franchise_list = getFranchiseInfo_MFL()
@@ -185,7 +185,7 @@ def getSurvivor_MFL():
 def getOTCInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=" + LeagueID + "&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=draftResults&L=" + LeagueID + "&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -201,7 +201,7 @@ def getOTCInfo_MFL():
 def getDraftInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "http://www65.myfantasyleague.com/2019/export?TYPE=draftResults&L=" + LeagueID + "&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=draftResults&L=" + LeagueID + "&JSON=1"
 		#UPDATE TO CORRECT WEEK AND URL FOR LEAGUE
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
@@ -222,7 +222,7 @@ def getDraftInfo_MFL():
 def getDLBucks_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))
 	try:
-		url = "https://www67.myfantasyleague.com/2019/export?TYPE=league&L=" + LeagueID + "&JSON=1"
+		url = "https://api.myfantasyleague.com/2020/export?TYPE=league&L=" + LeagueID + "&JSON=1"
 		response = requests.get(url,cookies=mflJar)
 		if response.status_code == 200:
 			data= json.loads(response.text)
@@ -238,7 +238,7 @@ def getDLBucks_MFL():
 		print ("Error in getting BB: " + str(e))
 
 def loginHELPER(username, password):
-	response = requests.get("https://api.myfantasyleague.com/2019/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
+	response = requests.get("https://api.myfantasyleague.com/2020/login?USERNAME=" + username + "&PASSWORD=" + password + "&XML=1")
 	#data= json.loads(response.text)
 	jar = response.cookies
 	mfl_id = jar.get("MFL_USER_ID")
@@ -278,7 +278,7 @@ def do4YP_Scoring():
 		print (response.text)
 		return response.text
 	except:
-		return "Error Getting Standings"
+		return "Error Getting Scoring"
 
 def doDL3_run():
 	url = "https://stickypi.herokuapp.com/dl3/run/"

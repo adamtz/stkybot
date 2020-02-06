@@ -92,8 +92,10 @@ def bylaws():
 		to_send = "On the MFL Site"
 	elif LeagueID == "55825":
 		to_send = "https://docs.google.com/document/d/14hFpzUFHm7VFeNXEQ4NydbYqAoSML2gR-PpYHdo-Qh0/view"
-	else:
+	elif LeagueID == "1":
 		to_send = 'https://docs.google.com/document/d/1kH6CBfGpBkCsiWCzGh5D-iri7cXKwzGIapIXdaMUyNw/edit?usp=sharing'
+	else:
+		to_send = 'Not Found'
 	sendText(to_send)
 
 def lineups():
