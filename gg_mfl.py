@@ -4,6 +4,7 @@ import os
 from datetime import datetime, timedelta, date
 
 LeagueID = os.getenv('LEAGUEID')
+cache = SimpleCache()
 
 def franchiseMatch(franchiseId):
 	try:
@@ -179,7 +180,7 @@ def getSurvivor_MFL():
 		else:
 			print ("request to mfl failed")
 	except Exception as e:
-		print ("Error in getting getting survivor info: " + str(e))
+		print ("Error in getting survivor info: " + str(e))
 		return ("No Survivor")
 
 def getOTCInfo_MFL():
@@ -196,7 +197,7 @@ def getOTCInfo_MFL():
 		else:
 			print ("request to otc mfl failed")
 	except Exception as e:
-		print ("Error in getting getting OTC: " + str(e))
+		print ("Error in getting OTC: " + str(e))
 
 def getDraftInfo_MFL():
 	mflJar = loginHELPER("stickyz", os.getenv('USER_PASS'))

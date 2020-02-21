@@ -19,7 +19,7 @@ def webhook():
 def parseMessage(message):
 	#check if someone is abusing the bot, if they have an entry in the cache then they hit too many times
 	status = cache.get(message['name'])
-	if status == "used":
+	if status == "used" and message['user_id'] != "27293802":
 		print ("banning: " + message['name'])
 		#delete from cache first so we can update the timeout via set
 		cache.delete(message['name'])
