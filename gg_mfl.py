@@ -13,7 +13,7 @@ def franchiseMatch(franchiseId):
 		franchise_list = cache.get("franchises")
 		if franchise_list is None:
 			franchise_list = getFranchiseInfo_MFL()
-			cache.set("franchises", franchise_list)
+			cache.set("franchises", franchise_list, 32000)
 		for franchise in franchise_list:
 			if (str(franchise["id"]) == str(franchiseId)):
 				return franchise["name"]
